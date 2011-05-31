@@ -5,10 +5,12 @@ define apt::preferences($ensure="present", $package="", $pin, $priority) {
     default => $package,
   }
 
+  $fname = regsubst($name, '\.', '-', 'G')
+
   # apt support preferences.d since version >= 0.7.22
   case $lsbdistcodename {
     /lucid|squeeze/ : {   
-      file {"/etc/apt/preferences.d/$name":
+      file {"/etc/apt/preferences.d/$fname":
         ensure  => $ensure,
         owner   => root,
         group   => root,
@@ -20,7 +22,7 @@ define apt::preferences($ensure="present", $package="", $pin, $priority) {
 
     }
     default: {
-      common::concatfilepart { $name:
+      common::concatfilepart { $fname:
         ensure  => $ensure,
         manage  => true,
         file    => "/etc/apt/preferences",
