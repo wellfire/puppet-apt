@@ -1,4 +1,7 @@
 class apt {
+
+  include apt::params
+
   Package {
     require => Exec["apt-get_update"]
   }
@@ -16,9 +19,9 @@ class apt {
         owner   => root,
         group   => root,
         mode    => 755,
-        recurse => true,
-        purge   => true,
-        force   => true,
+        recurse => "${apt::params::manage_preferences}",
+        purge   => "${apt::params::manage_preferences}",
+        force   => "${apt::params::manage_preferences}",
       }
     }
   }
@@ -27,9 +30,9 @@ class apt {
   file { "/etc/apt/sources.list.d":
     ensure  => directory,
     source  => "puppet:///apt/empty/",
-    recurse => true,
-    purge   => true,
-    force   => true,
+    recurse => "${apt::params::manage_sourceslist}",
+    purge   => "${apt::params::manage_sourceslist}",
+    force   => "${apt::params::manage_sourceslist}",
     ignore  => ".placeholder",
   }
 
