@@ -9,7 +9,7 @@ define apt::preferences($ensure="present", $package="", $pin, $priority) {
 
   # apt support preferences.d since version >= 0.7.22
   if ($lsbdistid == "Debian" and versioncmp($lsbdistrelease, "6.0") >= 0) or
-     ($lsbdistid == "Ubuntu" and versioncmp($lsbdistrelease, "10.4") >= 0) {
+     ($lsbdistid == "Ubuntu" and versioncmp($lsbdistrelease, "10.04") >= 0) {
     file {"/etc/apt/preferences.d/$fname":
       ensure  => $ensure,
       owner   => root,
