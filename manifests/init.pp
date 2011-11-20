@@ -29,7 +29,7 @@ class apt {
   # ensure only files managed by puppet be present in this directory.
   file { "/etc/apt/sources.list.d":
     ensure  => directory,
-    source  => "puppet:///apt/empty/",
+    source  => "puppet:///modules/apt/empty/",
     recurse => "${apt::params::manage_sourceslist}",
     purge   => "${apt::params::manage_sourceslist}",
     force   => "${apt::params::manage_sourceslist}",
@@ -38,7 +38,7 @@ class apt {
 
   apt::conf {"10periodic":
     ensure => present,
-    source => "puppet:///apt/10periodic",
+    source => "puppet:///modules/apt/10periodic",
   }
 
   exec { "apt-get_update":
