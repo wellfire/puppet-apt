@@ -7,23 +7,18 @@ class apt {
   }
 
   # apt support preferences.d since version >= 0.7.22
-  case $lsbdistcodename { 
-    /lucid|squeeze/ : {
+  file {"/etc/apt/preferences":
+    ensure => absent,
+  }
 
-      file {"/etc/apt/preferences":
-        ensure => absent,
-      }
-
-      file {"/etc/apt/preferences.d":
-        ensure  => directory,
-        owner   => root,
-        group   => root,
-        mode    => 755,
-        recurse => "${apt::params::manage_preferences}",
-        purge   => "${apt::params::manage_preferences}",
-        force   => "${apt::params::manage_preferences}",
-      }
-    }
+  file {"/etc/apt/preferences.d":
+    ensure  => directory,
+    owner   => root,
+    group   => root,
+    mode    => 755,
+    recurse => "${apt::params::manage_preferences}",
+    purge   => "${apt::params::manage_preferences}",
+    force   => "${apt::params::manage_preferences}",
   }
 
   # ensure only files managed by puppet be present in this directory.
