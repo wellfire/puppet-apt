@@ -44,4 +44,3 @@ apt::sources_list {"camptocamp":
   ensure  => present,
   content => "deb http://dev.camptocamp.com/packages/ etch puppet",
 }
-
