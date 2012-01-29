@@ -1,4 +1,4 @@
-define apt::ppa($key, $ppa="ppa", $ensure = present) {
+define apt::ppa($key, $ppa="ppa", $ensure=present) {
   apt::key { $key:
     ensure => $ensure,
   }

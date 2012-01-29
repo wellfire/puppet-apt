@@ -27,20 +27,30 @@ Require:
 
 ### apt::conf ##
 
-apt::conf{"99unattended-upgrade":
-  ensure  => present,
-  content => "APT::Periodic::Unattended-Upgrade \"1\";\n",
-}
+    apt::conf{"99unattended-upgrade":
+      ensure  => present,
+      content => "APT::Periodic::Unattended-Upgrade \"1\";\n",
+    }
 
 ### apt::key ###
 
-apt::key {"A37E4CF5":
-  source  => "http://dev.camptocamp.com/packages/debian/pub.key",
-}
+    apt::key {"A37E4CF5":
+      source  => "http://dev.camptocamp.com/packages/debian/pub.key",
+    }
 
 ### apt::sources_list ###
 
-apt::sources_list {"camptocamp":
-  ensure  => present,
-  content => "deb http://dev.camptocamp.com/packages/ etch puppet",
-}
+    apt::sources_list {"camptocamp":
+      ensure  => present,
+      content => "deb http://dev.camptocamp.com/packages/ etch puppet",
+    }
+
+### apt:ppa ###
+
+Add a Launchpad PPA, referencing the user name as the resource name,
+supplying the key reference and the package archive name.
+
+    apt::ppa {"brianmercer":
+      key => "8D0DC64F",
+      ppa => "php",
+    }
