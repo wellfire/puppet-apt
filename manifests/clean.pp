@@ -1,6 +1,6 @@
 /*
 
-== Class: apt::clean-cache
+== Class: apt::clean
 create a cronjob which will run "apt-get clean" once a month.
 
 Arguments:
