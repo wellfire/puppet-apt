@@ -28,7 +28,7 @@ class apt {
     recurse => "${apt::params::manage_sourceslist}",
     purge   => "${apt::params::manage_sourceslist}",
     force   => "${apt::params::manage_sourceslist}",
-    ignore  => ".placeholder",
+    ignore  => "${apt::params::ignore_sourceslist}",
   }
 
   apt::conf {"10periodic":
