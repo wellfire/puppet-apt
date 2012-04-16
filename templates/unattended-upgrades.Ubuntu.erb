@@ -4,3 +4,5 @@ Unattended-Upgrade::Allowed-Origins {
         "Ubuntu <%= lsbdistcodename %>";
         "Canonical <%= lsbdistcodename %>";
 };
+
+Dpkg::Options { "--force-confold"; }
