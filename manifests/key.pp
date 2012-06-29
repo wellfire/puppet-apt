@@ -1,11 +1,15 @@
-define apt::key($ensure=present, $source="", $content="") {
+define apt::key (
+  $ensure  = present,
+  $source  = '',
+  $content = ''
+) {
 
   case $ensure {
 
     present: {
-      if $content == "" {
-        if $source == "" {
-          $thekey = "gpg --keyserver keyserver.ubuntu.com --recv-key '${name}' && gpg --export --armor '${name}'"
+      if $content == '' {
+        if $source == '' {
+          $thekey = "gpg --keyserver pgp.mit.edu --recv-key '${name}' && gpg --export --armor '${name}'"
         }
         else {
           $thekey = "wget -O - '${source}'"
@@ -20,16 +24,20 @@ define apt::key($ensure=present, $source="", $content="") {
       	path => "/bin:/usr/bin",
         command => "${thekey} | apt-key add -",
         unless => "apt-key list | grep -Fqe '${name}'",
-        before => Exec["apt-get_update"],
-        notify => Exec["apt-get_update"],
+        before => Exec['apt-get_update'],
+        notify => Exec['apt-get_update'],
       }
     }
-    
+
     absent: {
       exec {"apt-key del ${name}":
         path => "/bin:/usr/bin",
         onlyif => "apt-key list | grep -Fqe '${name}'",
       }
+    }
+
+    default: {
+      fail "Invalid 'ensure' value '${ensure}' for apt::key"
     }
 
   }
